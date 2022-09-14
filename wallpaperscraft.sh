@@ -61,6 +61,20 @@ textures_num="289"
 vector_num="83"
 words_num="148"
 
+all_links() {
+	echo -e "\nDownloading from page $num\n"
+	for link in $(curl https://wallpaperscraft.com/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/"); do
+		wget -cq --show-progress -P $categories $link
+	done
+}
+
+links() {
+	echo -e "\nDownloading from page $num\n"
+	for link in $(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/"); do
+		wget -cq --show-progress -P $categories $link
+	done
+
+}
 
 read -p "Resolution of images : " resolution
 
@@ -93,644 +107,162 @@ elif [[ $page_num = range || $page_num = r ]]; then
 read -p "Starting Page Number range : " start_page
 read -p "Ending Page Number range : " end_page
 
-	if [[ $category = all ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+	if [[ $category = $cat ]]; then
+		for ((num=$start_page; num<=$end_page; num++)); do
+			alllinks
 		done
-	fi
-	
-	if [[ $category = 3d ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
 
-	if [[ $category = 60_favorites ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+	elif [[ $category = 3d || $category = 60_favorites || $category = abstract || $category = animals || $category = anime || $category = art || $category = black || $category = cars || $category = city || $category = dark || $category = fantasy || $category = flowers || $category = food || $category = holidays || $category = love || $category = macro || $category = minimalism || $category = motorcycles || $category = music || $category = nature || $category = other || $category = smilies || $category = space || $category = sport || $category = hi-tech || $category = textures || $category = vector || $category = words ]]; then
+		for ((num=$start_page; num<=$end_page; num++)); do
+			links	
 		done
 	fi
-
-	if [[ $category = abstract ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = animals ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = anime ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = art ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = black ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = cars ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = city ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = dark ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = fantasy ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = flowers ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = food ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = holidays ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = love ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = macro ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = minimalism ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = motorcycles ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = music ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = nature ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = other ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = smilies ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = space ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = sport ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = hi-tech ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = textures ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = vector ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = words ]]; then
-		for ((num=$start_page; num<=$end_page; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
 
 elif [[ $page_num = all ]]; then
 	
-	if [[ $category = all ]]; then
-		for ((num=1; num<=$all_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+	if [[ $category = $cat1 ]]; then
+		for ((num=1; num<=$all_num; num++)); do
+			all_links
 		done
-	fi
 	
-	if [[ $category = 3d ]]; then
-		for ((num=1; num<=$d3_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+	elif [[ $category = $cat2 ]]; then
+		for ((num=1; num<=$d3_num; num++)); do
+			links		
 		done
-	fi
-
-	if [[ $category = 60_favorites ]]; then
-		for ((num=1; num<=$favorites_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+	
+	elif [[ $category = $cat3 ]]; then
+		for ((num=1; num<=$favorites_num; num++)); do
+			links
+		done	
+	
+	elif [[ $category = $cat4 ]]; then
+		for ((num=1; num<=$abstract_num; num++)); do
+			links
 		done
-	fi
-
-	if [[ $category = abstract ]]; then
-		for ((num=1; num<=$abstract_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+	
+	elif [[ $category = $cat5 ]]; then
+		for ((num=1; num<=$animals_num; num++)); do
+			links
 		done
-	fi
-
-	if [[ $category = animals ]]; then
-		for ((num=1; num<=$animals_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+	
+	elif [[ $category = $cat6 ]]; then
+		for ((num=1; num<=$anime_num; num++)); do
+			links
 		done
-	fi
-
-	if [[ $category = anime ]]; then
-		for ((num=1; num<=$anime_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+	
+	elif [[ $category = $cat7 ]]; then
+		for ((num=1; num<=$art_num; num++)); do
+			links
 		done
-	fi
-
-	if [[ $category = art ]]; then
-		for ((num=1; num<=$art_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
-		done
-	fi
-
-	if [[ $category = black ]]; then
+	
+	elif [[ $category = $cat8 ]]; then
 		for ((num=1; num<=$black_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+			links
 		done
-	fi
-
-	if [[ $category = cars ]]; then
+	
+	elif [[ $category = $cat9 ]]; then
 		for ((num=1; num<=$cars_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+			links
 		done
-	fi
-
-	if [[ $category = city ]]; then
+	
+	elif [[ $category = $cat10 ]]; then
 		for ((num=1; num<=$city_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+			links
 		done
-	fi
-
-	if [[ $category = dark ]]; then
+	
+	elif [[ $category = $cat11 ]]; then
 		for ((num=1; num<=$dark_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+			links
 		done
-	fi
-
-	if [[ $category = fantasy ]]; then
+	
+	elif [[ $category = $cat12 ]]; then
 		for ((num=1; num<=$fantasy_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+			links
 		done
-	fi
-
-	if [[ $category = flowers ]]; then
+	
+	elif [[ $category = $cat13 ]]; then
 		for ((num=1; num<=$flowers_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+			links
 		done
-	fi
-
-	if [[ $category = food ]]; then
+	
+	elif [[ $category = $cat14 ]]; then
 		for ((num=1; num<=$food_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+			links
 		done
-	fi
-
-	if [[ $category = holidays ]]; then
+	
+	elif [[ $category = $cat15 ]]; then
 		for ((num=1; num<=$holidays_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+			links
 		done
-	fi
-
-	if [[ $category = love ]]; then
+	
+	elif [[ $category = $cat16 ]]; then
 		for ((num=1; num<=$love_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+			links
 		done
-	fi
-
-	if [[ $category = macro ]]; then
+	
+	elif [[ $category = $cat17 ]]; then
 		for ((num=1; num<=$macro_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+			links
 		done
-	fi
-
-	if [[ $category = minimalism ]]; then
+	
+	elif [[ $category = $cat18 ]]; then
 		for ((num=1; num<=$minimalism_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+			links
 		done
-	fi
-
-	if [[ $category = motorcycles ]]; then
+	
+	elif [[ $category = $cat19 ]]; then
 		for ((num=1; num<=$motorcycles_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+			links
 		done
-	fi
-
-	if [[ $category = music ]]; then
+	
+	elif [[ $category = $cat20 ]]; then
 		for ((num=1; num<=$music_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+			links
 		done
-	fi
-
-	if [[ $category = nature ]]; then
+	
+	elif [[ $category = $cat21 ]]; then
 		for ((num=1; num<=$nature_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+			links
 		done
-	fi
-
-	if [[ $category = other ]]; then
+	
+	elif [[ $category = $cat22 ]]; then
 		for ((num=1; num<=$other_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+			links
 		done
-	fi
-
-	if [[ $category = smilies ]]; then
+	
+	elif [[ $category = $cat23 ]]; then
 		for ((num=1; num<=$smilies_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+			links
 		done
-	fi
-
-	if [[ $category = space ]]; then
-		for ((num=1; num<=$space_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+	
+	elif [[ $category = $cat24 ]]; then
+		for ((num=1; num<=$space_num; num++)); do
+			links
 		done
-	fi
-
-	if [[ $category = sport ]]; then
+	
+	elif [[ $category = $cat25 ]]; then
 		for ((num=1; num<=$sport_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+			links
 		done
-	fi
-
-	if [[ $category = hi-tech ]]; then
+	
+	elif [[ $category = $cat26 ]]; then
 		for ((num=1; num<=$tech_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+			links
 		done
-	fi
-
-	if [[ $category = textures ]]; then
+	
+	elif [[ $category = $cat27 ]]; then
 		for ((num=1; num<=$textures_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+			links
 		done
-	fi
-
-	if [[ $category = vector ]]; then
+	
+	elif [[ $category = $cat28 ]]; then
 		for ((num=1; num<=$vector_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+			links
 		done
-	fi
-
-	if [[ $category = words ]]; then
-		for ((num=1; num<=$words_num; num++)); do	
-				echo -e "\nDownloading from page $num\n"
-			links=$(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/")
-			
-			
-			for link in ${links}; do
-				wget -cq --show-progress -P $categories $link
-			done
+	
+	elif [[ $category = $cat29 ]]; then
+		for ((num=1; num<=$words_num; num++)); do
+			links
 		done
 	fi
 
@@ -774,63 +306,63 @@ for link in ${links}; do
 done
 }
 
-	if [[ $category = all && $page -le 8817 ]]; then
+	if [[ $category = $cat1 && $page -le 8817 ]]; then
 		downloadall
-	elif [[ $category = 3d && $page -le 81 ]]; then
+	elif [[ $category = $cat2 && $page -le 81 ]]; then
 		download
-	elif [[ $category = 60_favorites && $page -le 60 ]]; then
+	elif [[ $category = $cat3 && $page -le 60 ]]; then
 		download
-	elif [[ $category = abstract && $page -le 658 ]]; then
+	elif [[ $category = $cat4 && $page -le 658 ]]; then
 		download
-	elif [[ $category = animals && $page -le 928 ]]; then
+	elif [[ $category = $cat5 && $page -le 928 ]]; then
 		download
-	elif [[ $category = anime && $page -le 179 ]]; then
+	elif [[ $category = $cat6 && $page -le 179 ]]; then
 		download
-	elif [[ $category = art && $page -le 219 ]]; then
+	elif [[ $category = $cat7 && $page -le 219 ]]; then
 		download
-	elif [[ $category = black && $page -le 47 ]]; then
+	elif [[ $category = $cat8 && $page -le 47 ]]; then
 		download
-	elif [[ $category = cars && $page -le 436 ]]; then
+	elif [[ $category = $cat9 && $page -le 436 ]]; then
 		download
-	elif [[ $category = city && $page -le 407 ]]; then
+	elif [[ $category = $cat10 && $page -le 407 ]]; then
 		download
-	elif [[ $category = dark && $page -le 357 ]]; then
+	elif [[ $category = $cat11 && $page -le 357 ]]; then
 		download
-	elif [[ $category = fantasy && $page -le 21 ]]; then
+	elif [[ $category = $cat12 && $page -le 21 ]]; then
 		download
-	elif [[ $category = flowers && $page -le 383 ]]; then
+	elif [[ $category = $cat13 && $page -le 383 ]]; then
 		download
-	elif [[ $category = food && $page -le 264 ]]; then
+	elif [[ $category = $cat14 && $page -le 264 ]]; then
 		download
-	elif [[ $category = holidays && $page -le 74 ]]; then
+	elif [[ $category = $cat15 && $page -le 74 ]]; then
 		download
-	elif [[ $category = love && $page -le 54 ]]; then
+	elif [[ $category = $cat16 && $page -le 54 ]]; then
 		download
-	elif [[ $category = macro && $page -le 553 ]]; then
+	elif [[ $category = $cat17 && $page -le 553 ]]; then
 		download
-	elif [[ $category = minimalism && $page -le 85 ]]; then
+	elif [[ $category = $cat18 && $page -le 85 ]]; then
 		download
-	elif [[ $category = motorcycles && $page -le 66 ]]; then
+	elif [[ $category = $cat19 && $page -le 66 ]]; then
 		download
-	elif [[ $category = music && $page -le 41 ]]; then
+	elif [[ $category = $cat20 && $page -le 41 ]]; then
 		download
-	elif [[ $category = nature && $page -le 1772 ]]; then
+	elif [[ $category = $cat21 && $page -le 1772 ]]; then
 		download
-	elif [[ $category = other && $page -le 773 ]]; then
+	elif [[ $category = $cat22 && $page -le 773 ]]; then
 		download
-	elif [[ $category = smilies && $page -le 3 ]]; then
+	elif [[ $category = $cat23 && $page -le 3 ]]; then
 		download
-	elif [[ $category = space && $page -le 117 ]]; then
+	elif [[ $category = $cat24 && $page -le 117 ]]; then
 		download
-	elif [[ $category = sport && $page -le 56 ]]; then
+	elif [[ $category = $cat25 && $page -le 56 ]]; then
 		download
-	elif [[ $category = hi-tech && $page -le 22 ]]; then
+	elif [[ $category = $cat26 && $page -le 22 ]]; then
 		download
-	elif [[ $category = textures && $page -le 266 ]]; then
+	elif [[ $category = $cat27 && $page -le 266 ]]; then
 		download
-	elif [[ $category = vector && $page -le 68 ]]; then
+	elif [[ $category = $cat28 && $page -le 68 ]]; then
 		download
-	elif [[ $category = words && $page -le 145 ]]; then
+	elif [[ $category = $cat29 && $page -le 145 ]]; then
 		download
 	else
 		echo -e "\nError. Wrong Input!\n"
