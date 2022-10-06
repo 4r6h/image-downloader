@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+if [ $1 = a ]; then
+	cat *.html | grep single | sed -e 's/<.*src="//' -e 's/".*>//' > links.ln
+
+elif [ $1 = d ]; then
+	rm *.html
+elif [ $1 = c ]; then
+	rm *$2*.html
+else
+page=1
+
+category="$2"
+
+if [ $category = all ]; then 
+
+url="wallpaperscraft.com/$category/page"
+
+
+until [ $page -gt 8827 ] 
+do
+	webpage=$(echo $url$page/)
+	wget -O $page-$category.html $webpage
+	((page++))
+done
+
+else
+
+url2="wallpaperscraft.com/catalog/$category/page"
+fi
+
+fi

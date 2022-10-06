@@ -1,0 +1,687 @@
+#!/usr/bin/env bash
+
+cat1="all"
+cat2="3d"
+cat3="60_favorites"
+cat4="abstract"
+cat5="animals"
+cat6="anime"
+cat7="art"
+cat8="black"
+cat9="cars"
+cat10="city"
+cat11="dark"
+cat12="fantasy"
+cat13="flowers"
+cat14="food"
+cat15="holidays"
+cat16="love"
+cat17="macro"
+cat18="minimalism"
+cat19="motorcycles"
+cat20="music"
+cat21="nature"
+cat22="other"
+cat23="smilies"
+cat24="space"
+cat25="sport"
+cat26="hi-tech"
+cat27="textures"
+cat28="vector"
+cat29="words"
+
+
+res1="2160x3840"
+res2="1440x2560" 
+res3="1366x768"
+res4="1080x1920" 
+res5="1024x600"
+res6="960x544"
+res7="800x1280" 
+res8="800x600"
+res9="720x1280" 
+res10="540x960"
+res11="480x854"
+res12="480x800"
+res13="360x640"
+res14="320x480"
+res15="320x240"
+res16="240x400"
+res17="240x320"
+res18="3415x3415"
+res19="2780x2780"
+res20="1350x2400"
+res21="1280x1280"
+res22="938x1668"
+res23="800x1420"
+res24="800x1200"
+res25="1600x1200"
+res26="1400x1050"
+res27="1280x1024"
+res28="1280x960"
+res29="1152x864"
+res30="1024x768"
+res31="3840x2400"
+res32="3840x2160"
+res33="2560x1600"
+res34="2560x1440"
+res35="2560x1080"
+res36="2560x1024"
+res37="2048x1152"
+res38="1920x1200"
+res39="1920x1080"
+res40="1680x1050"
+res41="1600x900"
+res42="1440x900"
+res43="1280x800"
+res44="1280x720"
+
+all_num="8827"
+d3_num="91"
+favorites_num="3"
+abstract_num="719"
+animals_num="1039"
+anime_num="229"
+art_num="245"
+black_num="49"
+cars_num="468"
+city_num="434"
+dark_num="364"
+fantasy_num="27"
+flowers_num="460"
+food_num="285"
+holidays_num="95"
+love_num="70"
+macro_num="611"
+minimalism_num="88"
+motorcycles_num="69"
+music_num="41"
+nature_num="1898"
+other_num="819"
+smilies_num="3"
+space_num="128"
+sport_num="59"
+tech_num="22"
+textures_num="289"
+vector_num="83"
+words_num="148"
+
+
+all_links() {
+	echo -e "\nDownloading from page $num\n"
+        categories="$PWD/crafts/$category"
+	for link in $(curl https://wallpaperscraft.com/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/"); do
+		echo $link >> $category-$resolution-page$start_page-$end_page.ln
+		wget -cq --show-progress -P $categories $link
+	done
+}
+
+#all_links() {
+#	echo -e "\nDownloading from page $num\n"
+#	for link in $(curl https://wallpaperscraft.com/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/"); do
+#		wget -cq --show-progress -P $categories $link
+#	done
+#}
+
+links() {
+	echo -e "\nDownloading from page $num\n"
+        categories="$PWD/crafts/$category"
+	for link in $(curl https://wallpaperscraft.com/catalog/$category/$resolution/page$num | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/"); do
+		wget -cq --show-progress -P $categories $link
+	done
+
+}
+
+download() {
+
+categories="$PWD/crafts/$category"
+
+if [ ! -d $categories ]; then
+
+	mkdir -p $categories
+fi
+
+echo -e "\nChecking $resolution Download links for $category in $page\n"
+
+for link in $(curl https://wallpaperscraft.com/catalog/$category/date/$resolution/$page | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/"); do
+
+	echo -e "\nDOWNLOADING : $link\n"
+
+	wget -cq --show-progress -P $categories $link
+done
+}
+
+downloadall() {
+
+categories="$PWD/crafts/$category"
+
+if [ ! -d $categories ]; then
+
+	mkdir -p $categories
+fi
+
+echo -e "\nChecking $resolution Download links for $category in $page\n"
+
+for link in $(curl https://wallpaperscraft.com/$category/$resolution/$page | grep "https://images.wallpaperscraft.com/image/single" | sed -e 's/<img class="wallpapers__image" src="//' -e 's/" alt="Preview wallpaper.*//' -e "s/300x168/$resolution/"); do
+
+	echo -e "\nDOWNLOADING : $link\n"
+
+	wget -cq --show-progress -P $categories $link
+done
+}
+
+
+if [ $# -eq 0 ]; then
+
+read -p "Resolution of images : " resolution
+
+if [[ -z $resolution ]]; then
+
+	echo -e "\nError! Empty input.....\n"
+
+elif [[ $resolution = $res1 
+     || $resolution = $res2
+     || $resolution = $res3 
+     || $resolution = $res4
+     || $resolution = $res5 
+     || $resolution = $res6 
+     || $resolution = $res7 
+     || $resolution = $res8 
+     || $resolution = $res9
+     || $resolution = $res10
+     || $resolution = $res11 
+     || $resolution = $res12 
+     || $resolution = $res13 
+     || $resolution = $res14
+     || $resolution = $res15
+     || $resolution = $res16
+     || $resolution = $res17
+     || $resolution = $res18 
+     || $resolution = $res19 
+     || $resolution = $res20 
+     || $resolution = $res21 
+     || $resolution = $res22 
+     || $resolution = $res23 
+     || $resolution = $res24 
+     || $resolution = $res25 
+     || $resolution = $res26
+     || $resolution = $res27
+     || $resolution = $res28 
+     || $resolution = $res29 
+     || $resolution = $res30 
+     || $resolution = $res31 
+     || $resolution = $res32
+     || $resolution = $res33 
+     || $resolution = $res34 
+     || $resolution = $res35 
+     || $resolution = $res36 
+     || $resolution = $res37
+     || $resolution = $res38 
+     || $resolution = $res39 
+     || $resolution = $res40 
+     || $resolution = $res41 
+     || $resolution = $res42 
+     || $resolution = $res43 
+     || $resolution = $res44 ]]; then
+
+read -p "Category : " category
+
+if [[ -z $category ]]; then
+
+	echo -e "\nError! Empty input.....\n"
+
+elif [[ $category = $cat1
+     || $category = $cat2 
+     || $category = $cat3 
+     || $category = $cat4 
+     || $category = $cat5 
+     || $category = $cat6 
+     || $category = $cat7 
+     || $category = $cat8 
+     || $category = $cat9 
+     || $category = $cat10
+     || $category = $cat11 
+     || $category = $cat12 
+     || $category = $cat13 
+     || $category = $cat14 
+     || $category = $cat15 
+     || $category = $cat16 
+     || $category = $cat17 
+     || $category = $cat18 
+     || $category = $cat19 
+     || $category = $cat20 
+     || $category = $cat21 
+     || $category = $cat22 
+     || $category = $cat23 
+     || $category = $cat24 
+     || $category = $cat25 
+     || $category = $cat26 
+     || $category = $cat27 
+     || $category = $cat28 
+     || $category = $cat29 ]]; then
+
+read -p "Page Number : " page_num
+
+page="page$page_num"
+
+if [[ -z $page_num ]]; then
+
+	echo -e "\nError! Empty input.....\n"
+
+elif [[ $page_num = range || $page_num = r ]]; then
+
+read -p "Starting Page Number range : " start_page
+read -p "Ending Page Number range : " end_page
+
+	if [[ $category = $cat1 ]]; then
+		for ((num=$start_page; num<=$end_page; num++)); do
+			all_links
+		done
+
+	elif [[ $category = $cat2 
+             || $category = $cat3 
+	     || $category = $cat4 
+	     || $category = $cat5 
+	     || $category = $cat6 
+	     || $category = $cat7 
+	     || $category = $cat8 
+	     || $category = $cat9 
+	     || $category = $cat10 
+	     || $category = $cat11 
+	     || $category = $cat12 
+	     || $category = $cat13 
+	     || $category = $cat14 
+	     || $category = $cat15 
+	     || $category = $cat16 
+	     || $category = $cat17 
+	     || $category = $cat18 
+	     || $category = $cat19 
+	     || $category = $cat20 
+	     || $category = $cat21 
+	     || $category = $cat22 
+	     || $category = $cat23 
+	     || $category = $cat24 
+	     || $category = $cat25 
+	     || $category = $cat26 
+	     || $category = $cat27 
+	     || $category = $cat28 
+	     || $category = $cat29 ]]; then
+		for ((num=$start_page; num<=$end_page; num++)); do
+			links	
+		done
+	fi
+
+elif [[ $page_num = all ]]; then
+	
+	if [[ $category = $cat1 ]]; then
+		for ((num=1; num<=$all_num; num++)); do
+			all_links
+		done
+	
+	elif [[ $category = $cat2 ]]; then
+		for ((num=1; num<=$d3_num; num++)); do
+			links		
+		done
+	
+	elif [[ $category = $cat3 ]]; then
+		for ((num=1; num<=$favorites_num; num++)); do
+			links
+		done	
+	
+	elif [[ $category = $cat4 ]]; then
+		for ((num=1; num<=$abstract_num; num++)); do
+			links
+		done
+	
+	elif [[ $category = $cat5 ]]; then
+		for ((num=1; num<=$animals_num; num++)); do
+			links
+		done
+	
+	elif [[ $category = $cat6 ]]; then
+		for ((num=1; num<=$anime_num; num++)); do
+			links
+		done
+	
+	elif [[ $category = $cat7 ]]; then
+		for ((num=1; num<=$art_num; num++)); do
+			links
+		done
+	
+	elif [[ $category = $cat8 ]]; then
+		for ((num=1; num<=$black_num; num++)); do	
+			links
+		done
+	
+	elif [[ $category = $cat9 ]]; then
+		for ((num=1; num<=$cars_num; num++)); do	
+			links
+		done
+	
+	elif [[ $category = $cat10 ]]; then
+		for ((num=1; num<=$city_num; num++)); do	
+			links
+		done
+	
+	elif [[ $category = $cat11 ]]; then
+		for ((num=1; num<=$dark_num; num++)); do	
+			links
+		done
+	
+	elif [[ $category = $cat12 ]]; then
+		for ((num=1; num<=$fantasy_num; num++)); do	
+			links
+		done
+	
+	elif [[ $category = $cat13 ]]; then
+		for ((num=1; num<=$flowers_num; num++)); do	
+			links
+		done
+	
+	elif [[ $category = $cat14 ]]; then
+		for ((num=1; num<=$food_num; num++)); do	
+			links
+		done
+	
+	elif [[ $category = $cat15 ]]; then
+		for ((num=1; num<=$holidays_num; num++)); do	
+			links
+		done
+	
+	elif [[ $category = $cat16 ]]; then
+		for ((num=1; num<=$love_num; num++)); do	
+			links
+		done
+	
+	elif [[ $category = $cat17 ]]; then
+		for ((num=1; num<=$macro_num; num++)); do	
+			links
+		done
+	
+	elif [[ $category = $cat18 ]]; then
+		for ((num=1; num<=$minimalism_num; num++)); do	
+			links
+		done
+	
+	elif [[ $category = $cat19 ]]; then
+		for ((num=1; num<=$motorcycles_num; num++)); do	
+			links
+		done
+	
+	elif [[ $category = $cat20 ]]; then
+		for ((num=1; num<=$music_num; num++)); do	
+			links
+		done
+	
+	elif [[ $category = $cat21 ]]; then
+		for ((num=1; num<=$nature_num; num++)); do	
+			links
+		done
+	
+	elif [[ $category = $cat22 ]]; then
+		for ((num=1; num<=$other_num; num++)); do	
+			links
+		done
+	
+	elif [[ $category = $cat23 ]]; then
+		for ((num=1; num<=$smilies_num; num++)); do	
+			links
+		done
+	
+	elif [[ $category = $cat24 ]]; then
+		for ((num=1; num<=$space_num; num++)); do
+			links
+		done
+	
+	elif [[ $category = $cat25 ]]; then
+		for ((num=1; num<=$sport_num; num++)); do	
+			links
+		done
+	
+	elif [[ $category = $cat26 ]]; then
+		for ((num=1; num<=$tech_num; num++)); do	
+			links
+		done
+	
+	elif [[ $category = $cat27 ]]; then
+		for ((num=1; num<=$textures_num; num++)); do	
+			links
+		done
+	
+	elif [[ $category = $cat28 ]]; then
+		for ((num=1; num<=$vector_num; num++)); do	
+			links
+		done
+	
+	elif [[ $category = $cat29 ]]; then
+		for ((num=1; num<=$words_num; num++)); do
+			links
+		done
+	fi
+
+else
+
+	if [[ $category = $cat1 && $page_num -le $all_num ]]; then
+		downloadall
+	elif [[ $category = $cat2 && $page_num -le $d3_num ]]; then
+		download
+	elif [[ $category = $cat3 && $page_num -le $favorites_num ]]; then
+		download
+	elif [[ $category = $cat4 && $page_num -le $abstract_num ]]; then
+		download
+	elif [[ $category = $cat5 && $page_num -le $animals_num ]]; then
+		download
+	elif [[ $category = $cat6 && $page_num -le $anime_num ]]; then
+		download
+	elif [[ $category = $cat7 && $page_num -le $art_num ]]; then
+		download
+	elif [[ $category = $cat8 && $page_num -le $black_num ]]; then
+		download
+	elif [[ $category = $cat9 && $page_num -le $cars_num ]]; then
+		download
+	elif [[ $category = $cat10 && $page_num -le $city_num ]]; then
+		download
+	elif [[ $category = $cat11 && $page_num -le $dark_num ]]; then
+		download
+	elif [[ $category = $cat12 && $page_num -le $fantasy_num ]]; then
+		download
+	elif [[ $category = $cat13 && $page_num -le $flowers_num ]]; then
+		download
+	elif [[ $category = $cat14 && $page_num -le $food_num ]]; then
+		download
+	elif [[ $category = $cat15 && $page_num -le $holidays_num ]]; then
+		download
+	elif [[ $category = $cat16 && $page_num -le $love_num ]]; then
+		download
+	elif [[ $category = $cat17 && $page_num -le $macro_num ]]; then
+		download
+	elif [[ $category = $cat18 && $page_num -le $minimalism_num ]]; then
+		download
+	elif [[ $category = $cat19 && $page_num -le $motorcycles_num ]]; then
+		download
+	elif [[ $category = $cat20 && $page_num -le $music_num ]]; then
+		download
+	elif [[ $category = $cat21 && $page_num -le $nature_num ]]; then
+		download
+	elif [[ $category = $cat22 && $page_num -le $other_num ]]; then
+		download
+	elif [[ $category = $cat23 && $page_num -le $smilies_num ]]; then
+		download
+	elif [[ $category = $cat24 && $page_num -le $space_num ]]; then
+		download
+	elif [[ $category = $cat25 && $page_num -le $sport_num ]]; then
+		download
+	elif [[ $category = $cat26 && $page_num -le $tech_num ]]; then
+		download
+	elif [[ $category = $cat27 && $page_num -le $textures_num ]]; then
+		download
+	elif [[ $category = $cat28 && $page_num -le $vector_num ]]; then
+		download
+	elif [[ $category = $cat29 && $page_num -le $words_num ]]; then
+		download
+	else
+		echo -e "\nError. Wrong Input!\n"
+	fi
+
+fi
+
+else
+	echo -e "\nError. Wrong Category!\n"
+fi
+
+else
+	echo -e "\nError. Wrong Resolution!\n"
+fi
+
+else
+
+while getopts ":c:r:p:" opt; do
+  case $opt in
+    c)
+      if [[ $OPTARG = $cat1
+	 || $OPTARG = $cat2
+	 || $OPTARG = $cat3
+	 || $OPTARG = $cat4
+	 || $OPTARG = $cat5
+	 || $OPTARG = $cat6
+	 || $OPTARG = $cat7
+	 || $OPTARG = $cat8 
+	 || $OPTARG = $cat9 
+	 || $OPTARG = $cat10
+	 || $OPTARG = $cat11 
+	 || $OPTARG = $cat12 
+	 || $OPTARG = $cat13 
+	 || $OPTARG = $cat14
+	 || $OPTARG = $cat15
+	 || $OPTARG = $cat16
+	 || $OPTARG = $cat17
+	 || $OPTARG = $cat18
+	 || $OPTARG = $cat19
+	 || $OPTARG = $cat20
+	 || $OPTARG = $cat21
+	 || $OPTARG = $cat22
+	 || $OPTARG = $cat23
+	 || $OPTARG = $cat24
+	 || $OPTARG = $cat25
+	 || $OPTARG = $cat26
+	 || $OPTARG = $cat27
+	 || $OPTARG = $cat28
+	 || $OPTARG = $cat29 ]]; then
+
+      echo "-c was triggered, Parameter: $OPTARG" >&2
+      category="$OPTARG"
+      else
+
+	echo -e "\nError. Wrong Category!\n"
+
+      fi
+      ;;
+    r)
+      if [[ $OPTARG = $res1 
+	 || $OPTARG = $res2
+	 || $OPTARG = $res3
+	 || $OPTARG = $res4
+	 || $OPTARG = $res5
+	 || $OPTARG = $res6
+	 || $OPTARG = $res7
+	 || $OPTARG = $res8
+	 || $OPTARG = $res9
+	 || $OPTARG = $res10
+	 || $OPTARG = $res11
+	 || $OPTARG = $res12
+	 || $OPTARG = $res13
+	 || $OPTARG = $res14
+	 || $OPTARG = $res15
+	 || $OPTARG = $res16
+	 || $OPTARG = $res17
+	 || $OPTARG = $res18
+	 || $OPTARG = $res19
+	 || $OPTARG = $res20
+	 || $OPTARG = $res21
+	 || $OPTARG = $res22
+	 || $OPTARG = $res23
+	 || $OPTARG = $res24
+	 || $OPTARG = $res25
+	 || $OPTARG = $res26
+	 || $OPTARG = $res27
+	 || $OPTARG = $res28
+	 || $OPTARG = $res29
+	 || $OPTARG = $res30
+	 || $OPTARG = $res31
+	 || $OPTARG = $res32
+	 || $OPTARG = $res33
+	 || $OPTARG = $res34
+	 || $OPTARG = $res35
+	 || $OPTARG = $res36
+	 || $OPTARG = $res37
+	 || $OPTARG = $res38
+	 || $OPTARG = $res39
+	 || $OPTARG = $res40
+	 || $OPTARG = $res41
+	 || $OPTARG = $res42
+	 || $OPTARG = $res43
+	 || $OPTARG = $res44 ]]; then
+
+      echo "-r was triggered, Parameter: $OPTARG" >&2
+      resolution="$OPTARG"
+      else
+
+	echo -e "\nError. Wrong Resolution!\n"
+
+      fi
+
+      ;;
+    p)
+	if [[ $category = $cat1 && $OPTARG -le $all_num
+	   || $category = $cat2 && $OPTARG -le $d3_num
+	   || $category = $cat3 && $OPTARG -le $favorites_num
+	   || $category = $cat4 && $OPTARG -le $abstract_num
+	   || $category = $cat5 && $OPTARG -le $animals_num
+	   || $category = $cat6 && $OPTARG -le $anime_num
+	   || $category = $cat7 && $OPTARG -le $art_num
+	   || $category = $cat8 && $OPTARG -le $black_num
+	   || $category = $cat9 && $OPTARG -le $cars_num
+	   || $category = $cat10 && $OPTARG -le $city_num 
+	   || $category = $cat11 && $OPTARG -le $dark_num 
+	   || $category = $cat12 && $OPTARG -le $fantasy_num
+	   || $category = $cat13 && $OPTARG -le $flowers_num 
+	   || $category = $cat14 && $OPTARG -le $food_num 
+	   || $category = $cat15 && $OPTARG -le $holidays_num
+	   || $category = $cat16 && $OPTARG -le $love_num
+	   || $category = $cat17 && $OPTARG -le $macro_num 
+	   || $category = $cat18 && $OPTARG -le $minimalism_num
+	   || $category = $cat19 && $OPTARG -le $motorcycles_num
+	   || $category = $cat20 && $OPTARG -le $music_num
+	   || $category = $cat21 && $OPTARG -le $nature_num
+	   || $category = $cat22 && $OPTARG -le $other_num 
+	   || $category = $cat23 && $OPTARG -le $smilies_num
+	   || $category = $cat24 && $OPTARG -le $space_num 
+	   || $category = $cat25 && $OPTARG -le $sport_num
+	   || $category = $cat26 && $OPTARG -le $tech_num
+	   || $category = $cat27 && $OPTARG -le $textures_num 
+	   || $category = $cat28 && $OPTARG -le $vector_num
+	   || $category = $cat29 && $OPTARG -le $words_num ]]; then
+
+	      echo "-p was triggered, Parameter: $OPTARG" >&2
+              page="page$OPTARG"
+	      if [[ $category = $cat1 ]]; then
+	            downloadall
+	      else
+		    download
+	      fi
+        else
+	      echo -e "\nError. Wrong Input!\n"
+	fi
+      ;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      exit 1
+      ;;
+    :)
+      echo "Option -$OPTARG requires an argument." >&2
+      exit 1
+      ;;
+  esac
+done
+
+fi
